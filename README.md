@@ -1,19 +1,24 @@
-Author  : Andreas Puschendorf, DL7OAP
-Date    : 2020-09-01
+**Author  : Mattiolo Paolo, IN3AQK**
+
+
+
+**Based on the idea of  Andreas Puschendorf, DL7OAP**
+GitHub https://github.com/dl7oap/gp2ic9700
+
+
 
 
 # General
 
-This Pythonscript is plugged between [gpredict](http://gpredict.oz9aec.net/ "Gpredict") and 
-[ICOM 9700](https://www.icomeurope.com/produkt/ic-9700/).
+This Python script is plugged between [gpredict](http://gpredict.oz9aec.net/ "Gpredict") and Yaesu Ft-817 or FT-818.
 It is listing on port 4532 for gpredict UDP packages and frequencies
-and it is sending frequencies and startsequences as CAT CI-V commands for ic9700 to the serial port.
+and it is sending frequencies and startsequences as CAT commands for the Yaesu.
 
 The main reason for this plugin or adapter is to have a smooth control of the 
-ic9700 for linear ssb satellites with gpredict (without to have to use hamlib).
- 
+Ft-817 in half duplex mode for linear ssb satellites with gpredict (without to have to use hamlib).
+
 You can using the dail knob to sweep over the satellite transponder.
-The script updates the frequencies not by time intervall, but when a specified hertz offset is reached.
+The script updates the frequencies not by time interval, but when a specified hertz offset is reached.
 this helps to avoid unnecessary updates and smooth the handling. 
 you can easily store your RIT for every satellite for USB/CW, so most of the time when you start on a ssb satellite 
 you will here you exactly where you want to be.
@@ -27,36 +32,34 @@ you will here you exactly where you want to be.
 
 # Installation
 
-- download sourcecode as zip-file https://github.com/dl7oap/gp2ic9700/archive/master.zip
+- download sourcecode as zip-file https://github.com/in3aqk/gpredictTo817/archive/master.zip
 - extract it to a folder of your choice
 - ensure that python 3.6 or higher is installed <code>python --version</code>
 - ensure that pyserial and pyqt5 is installed <code>pip install pyserial</code> and <code>pip install PyQt5</code>
-- open gp2ic9700.py in a text editor, find the following line near the end <code>ic9700 = icom.ic9700('/dev/ic9700a', '115200')</code> 
+- open gpredictTo817.py in a text editor, find the following line near the end <code>ic9700 = icom.ic9700('/dev/ic9700a', '115200')</code> 
 and replace /dev/ic9700a with your serial connection port. Example: 'COM5' on Windows or '/dev/ttyUSB0' on Linux.
-- start the script with <code>python gp2ic9700.py</code> 
+- start the script with <code>python gpredictTo817.py</code> 
 
 Here it is working with Linux (Ubuntu) and Windows 10.
 
 GUI:
 
 Linux 
-![gui](gui_linux.png) and 
+![gui](images/gui_linux.png) and 
 Windows 10 
-![gui](gui_win10.png)
+![gui](images/gui_win10.png)
 
 # Configuration in gpredict
 
-![gpredict](gpredict_configuration.png)
+![gpredict](images/gpredict_configuration.png)
 
 <i>Hint: It doesn't matter for this script if VFO Up/Down is set to SUB/MAIN or MAIN/SUB. Both option will work.</i>
 
-![engage](engage.png)
+![engage](images/engage.png)
 
-# Configuration ICOM 9700
+# Configuration Yaesu FT-817
 
-* CI-V Transceive = ON
-* CI-V USB Baud Rate = 115200
-* CI-V USB Echo Back = OFF
+**To be written**
 
 # Format of satellites.txt
 
@@ -78,9 +81,9 @@ ISS,FM,0,V/V
 
 Start the programm by typing this command into the shell 
 
-<code>python gp2ic9700.py</code>  
+<code>python gpredictTo817.py</code>  
 or   
-<code>python3 gp2ic9700.py</code>
+<code>python3 gpredictTo817.py</code>
 
 1. select a satellite
 2. start gpredict with a duplex trx on port 4532 and MAIN/SUB tracking a satellite
@@ -96,7 +99,7 @@ via the dial knob.
 
 The pythonscript will only send necessary updates, to calm down the display and reduce load on the CAT interface. 
 Only frequency shift greater then a defined Hz will be send to the transceiver.
-Search in the file gp2ic9700.py for <code>FREQUENCY_OFFSET_UPLINK = </code> or <code>FREQUENCY_OFFSET_DOWNLINK =</code> 
+Search in the file gpredictTo817.py for <code>FREQUENCY_OFFSET_UPLINK = </code> or <code>FREQUENCY_OFFSET_DOWNLINK =</code> 
 when you want to change the offset.
 
 At start the script always set:
